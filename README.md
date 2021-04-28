@@ -1,6 +1,8 @@
 # Code-in-Place-2021
 This is a collection of Kim's work for Code in Place 2021 / Stanford's CS106A. 😄
+
 🏡 https://codeinplace.stanford.edu/ 🖥️
+
 ## About the Course
 * Course Dates: April 19th until May 28th.
 * Where: Anywhere with internet.
