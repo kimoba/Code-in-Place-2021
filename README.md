@@ -3,6 +3,9 @@ This is a collection of Kim's work for Code in Place 2021 / Stanford's CS106A. �
 
 🏡 https://codeinplace.stanford.edu/ 🖥️
 
+![Outdated banner but it works!](https://i.imgur.com/V7I2nEE.png)
+> Outdated banner but it's cute!
+> 
 ## About the Course
 * Course Dates: April 19th until May 28th.
 * Where: Anywhere with internet.
