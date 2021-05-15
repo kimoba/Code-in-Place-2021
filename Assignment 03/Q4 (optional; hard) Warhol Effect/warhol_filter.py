@@ -19,9 +19,14 @@ def main():
 
     # place a patch onto the final image
     # with its top left corner at ( start_x , start_y )
+    # TOP ROW
     put_patch(final_image, 0, 0, patch)  # column 1
     put_patch(final_image, 222, 0, patch)  # column 2
     put_patch(final_image, 444, 0, patch)  # column 3
+    # BOTTOM ROW
+    put_patch(final_image, 0, 222, patch)  # column 3
+    put_patch(final_image, 222, 222, patch)  # column 3
+    put_patch(final_image, 444, 222, patch)  # column 3
 
     final_image.show()
     # patch.show()  # image recolor test. good
