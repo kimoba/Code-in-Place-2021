@@ -27,7 +27,7 @@ def make_reflected(filename):
             image at the same coordinates
         2c. do the same for the opposite side
             x coordinate is the same
-            y is flipped 
+            y is flipped (doubled height - y+1 bc the image starts at 0, 0)
     then move to the next row (left to right)
     """
     for x in range(width): 
