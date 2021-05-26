@@ -21,19 +21,35 @@ def main():
 
 def action(name, color, inte, spd, lck):
     choice = int(input("What would you like to do? \n [ 1 - check stats | 2 - train | 3 - go on a walk] \n"))
-    if choice == 1:
+    if choice == 1:  # check stats
         print(f"{name}, your stats are as follows: \n")
         #inte
         if inte <= 25:
-            print("INTELLIGENCE: Smarts could be worked on!")
+            print("INTELLIGENCE: Smarts could be worked on! 😅")
         elif inte <= 50:
-            print("INTELLIGENCE: Averagely smart!")
+            print("INTELLIGENCE: Average. 🙂")
         elif inte <= 75:
-            print("INTELLIGENCE: What a smart dog you are!")
+            print("INTELLIGENCE: So smart! 🧠")
         else:
-            print("INTELLIGENCE: Wow! Genius of a dog!")
+            print("INTELLIGENCE: 🧠 You're a genius! 🧠")
         #spd
+        if spd <= 25:
+            print("SPEED: Slow... 😅")
+        elif spd <= 50:
+            print("SPEED: Average. 🙂")
+        elif spd <= 75:
+            print("SPEED: Fast! 💨")
+        else:
+            print("SPEED: 💨 Blazing fast! 💨")
         #lck
+        if lck <= 25:
+            print("LUCK: Not so lucky... 😅")
+        elif lck <= 50:
+            print("LUCK: Average luck. 🙂")
+        elif lck <= 75:
+            print("LUCK: Pretty lucky! 🍀 ")
+        else:
+            print("LUCK: 🍀 Phenomenally lucky!! 🍀")
 
 # generates random int, spd, and lck stats for the player
 def gen_random_stats():
