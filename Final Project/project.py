@@ -1,15 +1,45 @@
 from simpleimage import SimpleImage
+import random
+
+'''
+player_info will contain:
+name, color, intelligence (inte), speed (spd), and luck (lck)
+'''
 player_info = {}
+
 dog_icon_og = SimpleImage("/home/dog_face_kimedit.png")
 
 def main():
     dog_icon = clone_dog_img(dog_icon_og)
 
-    player_info["name"] = get_name()
-    player_info["color"] = get_color(dog_icon)
+    get_player_info(dog_icon)
+    action(player_info["name"], player_info["color"], player_info["inte"], player_info["spd"], player_info["lck"])
 
     print(f"TEST PLAYER INFO:\n {player_info}")
+    player_info["image"].show()
 
+
+def action(name, color, inte, spd, lck):
+    choice = int(input("What would you like to do? \n [ 1 - check stats | 2 - train | 3 - go on a walk] \n"))
+    if choice == 1:
+        print(f"{name}, your stats are as follows: \n")
+        #inte
+        if inte <= 25:
+            print("INTELLIGENCE: Smarts could be worked on!")
+        elif inte <= 50:
+            print("INTELLIGENCE: Averagely smart!")
+        elif inte <= 75:
+            print("INTELLIGENCE: What a smart dog you are!")
+        else:
+            print("INTELLIGENCE: Wow! Genius of a dog!")
+        #spd
+        #lck
+
+# generates random int, spd, and lck stats for the player
+def gen_random_stats():
+    player_info["inte"] = random.randint(0, 100)
+    player_info["spd"] = random.randint(0, 100)
+    player_info["lck"] = random.randint(0, 100)
 
 '''
 check_color_satisfied(dog_icon):
@@ -19,12 +49,14 @@ also resets/copies the original dog image so we can change the default color aga
 '''
 def check_color_satisfied(dog_icon, color):
     confirm = input("Are you satisfied? (Y/N) \n")
+    print("")  # extra line after user input
     confirm = confirm.lower()
     # print(confirm)
     if confirm not in ("y", "yes"):
         dog_icon = clone_dog_img(dog_icon_og)
         get_color(dog_icon)
-    print("Sounds good!\n")
+    else:
+        print("Sounds good!\n")
 
 '''
 color_dog(color, dog_icon):
@@ -68,6 +100,7 @@ def color_dog(color, dog_icon):
                 pixel.green = 86
                 pixel.blue = 86
     dog_icon.show()
+    player_info["image"] = dog_icon
     check_color_satisfied(dog_icon, color)
 
 # checking if inputted player color is valid
@@ -75,6 +108,7 @@ def check_color(color):
     while color not in ("red", "yellow", "brown", "white", "black" ):
         print("Please enter a valid color choice! \n")
         color = input("What color is your fur? \n Pick between:\n ( red | yellow | brown | white | black )\n")
+    player_info["color"] = color
     return color
 
 # get player fur color and add it into player status dictionary
@@ -85,7 +119,7 @@ def get_color(dog_icon):
     color = color.lower()
     color = check_color(color)
     color_dog(color, dog_icon)
-    return color
+    
 
 # clones original dog icon "dog_icon_og" to new canvas "dog_icon"
 def clone_dog_img(dog_icon_og):
@@ -102,7 +136,7 @@ def clone_dog_img(dog_icon_og):
 
 # get player name and add it into player status dictionary
 def get_name():
-    name = input("What is your name? ")
+    name = input("Hi there. What is your name? ")
     print("")  # empty line after player input
     confirm = input(f"{name}? Is that right? (Y/N) ")
     confirm = confirm.lower()
@@ -113,7 +147,13 @@ def get_name():
             name = input("What is your name? ")
             confirm = input(f"{name}? Is that right? (Y/N) ")
             print("")
-    return name
+    player_info["name"] = name
+
+# get player name, color, random stats - add to dict as well
+def get_player_info(dog_icon):
+    get_name()
+    get_color(dog_icon)
+    gen_random_stats()
 
 if __name__ == '__main__':
     main()
