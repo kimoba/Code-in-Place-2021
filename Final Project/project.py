@@ -17,11 +17,11 @@ checks to make sure if player is satisified with their color choice
 otherwise asks them again to pick a fur color
 also resets/copies the original dog image so we can change the default color again
 '''
-def check_color_satisfied(dog_icon):
-    color = input("Are you satisfied? (Y/N) \n")
-    color = color.lower()
-    # print(color)
-    if color != "y" or color != "yes":
+def check_color_satisfied(dog_icon, color):
+    confirm = input("Are you satisfied? (Y/N) \n")
+    confirm = confirm.lower()
+    # print(confirm)
+    if confirm not in ("y", "yes"):
         dog_icon = clone_dog_img(dog_icon_og)
         get_color(dog_icon)
     print("Sounds good!\n")
@@ -68,7 +68,7 @@ def color_dog(color, dog_icon):
                 pixel.green = 86
                 pixel.blue = 86
     dog_icon.show()
-    check_color_satisfied(dog_icon)
+    check_color_satisfied(dog_icon, color)
 
 # checking if inputted player color is valid
 def check_color(color):
@@ -109,10 +109,9 @@ def get_name():
     if confirm == "y" or confirm == "yes":
         print("Sounds good!\n")
     else: 
-        while confirm != "y" or confirm != "yes":
+        while confirm.lower() not in ("y", "yes"):
             name = input("What is your name? ")
             confirm = input(f"{name}? Is that right? (Y/N) ")
-            confirm = confirm.lower()
             print("")
     return name
 
