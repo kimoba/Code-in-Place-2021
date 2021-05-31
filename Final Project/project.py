@@ -40,24 +40,56 @@ def action():
         print("Not a valid choice! Try again.")
         action()
 
+# makes sure player stats don't go under 0 or over 100
+def stat_verify(spd, inte, lck):
+    if spd < 0:
+        player_info["spd"] = 0
+    elif inte < 0:
+        player_info["inte"] = 0
+    elif lck < 0:
+        player_info["lck"] = 0
+    elif spd > 100:
+        player_info["spd"] = 100
+    elif inte > 100:
+        player_info["inte"] = 100
+    elif lck > 100:
+        player_info["lck"] = 100
+    print(f"verifying stats:\nplayer spd = {player_info['spd']}\nplayer inte = {player_info['inte']}\nplayer lck = {player_info['lck']}")
+
+
+# player can randomly train their inte or spd, based on their luck
 def train(inte, spd, lck):
-    event_num = random.randint(1, 3)
-    # print(event_num)
-    if event_num == 1:
-        spd_inc = random.randint(1, 20)
-        print(f"You decided to work on your running speed!\nYour speed increased by {spd_inc}!")
-        print("")
-        player_info["spd"] = spd + spd_inc
-    elif event_num == 2:
-        spd_dec = random.randint(1, 5)
-        print(f"Oh no, you wore yourself out trying to increase your running speed!\nYour speed decreased by {spd_dec}!")
-        player_info["spd"] = spd - spd_dec
-        print("")
-    else:  # randint 3
-        int_inc = random.randint(1, 20)
-        print(f"You decided to study some humans and their behaviors.\nYour intelligence increased by {int_inc}!")
-        player_info["inte"] = inte + int_inc
-        print("")
+    player_luck = player_info["lck"] * .01
+    event_num = random.randint(1, 2)
+
+    # random events based on player luck %
+    if random.random() < player_luck:
+        #print("player luck: " + player_luck)
+        #print("event_num: " + event_num)
+        #print("player luck value! lucky!")
+        if event_num == 1:
+            spd_inc = random.randint(1, 5)
+            print(f"You decided to work on your running speed!\nYour speed increased by {spd_inc}! ➕")
+            print("")
+            player_info["spd"] = spd + spd_inc
+        else:  # randint 3
+            inte_inc = random.randint(1, 5)
+            print(f"You decided to study some humans and their behaviors.\nYour intelligence increased by {inte_inc}! ➕")
+            player_info["inte"] = inte + inte_inc
+            print("")
+    else:
+        #print("not player luck value! unlucky!")
+        if event_num == 1:
+            spd_dec = random.randint(1, 5)
+            print(f"Oh no, you wore yourself out trying to increase your running speed!\nYour speed decreased by {spd_dec}! ➖")
+            player_info["spd"] = spd - spd_dec
+            print("")
+        else:
+            inte_dec = random.randint(1, 5)
+            print(f"You're starting to wonder if studying humans is making you dumber!\nYour int decreased by {inte_dec}! ➖")
+            player_info["inte"] = inte - inte_dec
+            print("")
+    stat_verify(player_info["spd"], player_info["inte"], player_info["lck"])
     action()
 
 # prints out all of the player's stats
