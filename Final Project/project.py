@@ -13,43 +13,88 @@ def main():
     dog_icon = clone_dog_img(dog_icon_og)
 
     get_player_info(dog_icon)
-    action(player_info["name"], player_info["color"], player_info["inte"], player_info["spd"], player_info["lck"])
+    action()
 
-    print(f"TEST PLAYER INFO:\n {player_info}")
-    player_info["image"].show()
+    # print(f"TEST PLAYER INFO:\n {player_info}")
+    # player_info["image"].show()
 
-
-def action(name, color, inte, spd, lck):
-    choice = int(input("What would you like to do? \n [ 1 - check stats | 2 - train | 3 - go on a walk] \n"))
+'''
+player action
+player can choose to
+1 - check their stats
+2 - train their stats
+3 - go on a walk and maybe get lucky?
+4 - quit program
+'''
+def action():
+    choice = int(input("What would you like to do? \n [ 1 - check stats | 2 - train | 3 - go on a walk | 4 - quit] \n"))
     if choice == 1:  # check stats
-        print(f"{name}, your stats are as follows: \n")
-        #inte
-        if inte <= 25:
-            print("INTELLIGENCE: Smarts could be worked on! 😅")
-        elif inte <= 50:
-            print("INTELLIGENCE: Average. 🙂")
-        elif inte <= 75:
-            print("INTELLIGENCE: So smart! 🧠")
-        else:
-            print("INTELLIGENCE: 🧠 You're a genius! 🧠")
-        #spd
-        if spd <= 25:
-            print("SPEED: Slow... 😅")
-        elif spd <= 50:
-            print("SPEED: Average. 🙂")
-        elif spd <= 75:
-            print("SPEED: Fast! 💨")
-        else:
-            print("SPEED: 💨 Blazing fast! 💨")
-        #lck
-        if lck <= 25:
-            print("LUCK: Not so lucky... 😅")
-        elif lck <= 50:
-            print("LUCK: Average luck. 🙂")
-        elif lck <= 75:
-            print("LUCK: Pretty lucky! 🍀 ")
-        else:
-            print("LUCK: 🍀 Phenomenally lucky!! 🍀")
+        show_stats(player_info["name"], player_info["color"], player_info["inte"], player_info["spd"], player_info["lck"])
+    elif choice == 2:  # train
+        train(player_info["inte"], player_info["spd"], player_info["lck"])
+    elif choice == 3:  # go on a walk
+            print("To be implemented.")
+    elif choice == 4:
+        print("Thank you for playing!")
+    else:
+        print("Not a valid choice! Try again.")
+        action()
+
+def train(inte, spd, lck):
+    event_num = random.randint(1, 3)
+    # print(event_num)
+    if event_num == 1:
+        spd_inc = random.randint(1, 20)
+        print(f"You decided to work on your running speed!\nYour speed increased by {spd_inc}!")
+        print("")
+        player_info["spd"] = spd + spd_inc
+    elif event_num == 2:
+        spd_dec = random.randint(1, 5)
+        print(f"Oh no, you wore yourself out trying to increase your running speed!\nYour speed decreased by {spd_dec}!")
+        player_info["spd"] = spd - spd_dec
+        print("")
+    else:  # randint 3
+        int_inc = random.randint(1, 20)
+        print(f"You decided to study some humans and their behaviors.\nYour intelligence increased by {int_inc}!")
+        player_info["inte"] = inte + int_inc
+        print("")
+    action()
+
+# prints out all of the player's stats
+def show_stats(name, color, inte, spd, lck):
+    print("")  # empty line before showing stats
+    #name & fur color
+    print(f"Your stats are as follows: \n")
+    print(f"NAME: {name}\nFUR COLOR: {color}")
+    #intelligence
+    if inte <= 25:
+        print("INTELLIGENCE: Smarts could be worked on! 😅")
+    elif inte <= 50:
+        print("INTELLIGENCE: Average. 🙂")
+    elif inte <= 75:
+        print("INTELLIGENCE: So smart! 🧠")
+    else:
+        print("INTELLIGENCE: 🧠 You're a genius! 🧠")
+    #speed
+    if spd <= 25:
+        print("SPEED: Slow... 😅")
+    elif spd <= 50:
+        print("SPEED: Average. 🙂")
+    elif spd <= 75:
+        print("SPEED: Fast! 💨")
+    else:
+        print("SPEED: 💨 Blazing fast! 💨")
+    #luck
+    if lck <= 25:
+        print("LUCK: Not so lucky... 😅")
+    elif lck <= 50:
+        print("LUCK: Average luck. 🙂")
+    elif lck <= 75:
+        print("LUCK: Pretty lucky! 🍀 ")
+    else:
+        print("LUCK: 🍀 Phenomenally lucky!! 🍀")
+    print("")  # empty line
+    action()
 
 # generates random int, spd, and lck stats for the player
 def gen_random_stats():
