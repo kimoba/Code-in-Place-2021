@@ -30,10 +30,11 @@ def action():
     choice = int(input("What would you like to do? \n [ 1 - check stats | 2 - train | 3 - go on a walk | 4 - quit] \n"))
     if choice == 1:  # check stats
         show_stats(player_info["name"], player_info["color"], player_info["inte"], player_info["spd"], player_info["lck"])
+
     elif choice == 2:  # train
         train(player_info["inte"], player_info["spd"], player_info["lck"])
     elif choice == 3:  # go on a walk
-            print("To be implemented.")
+        walk(player_info["inte"], player_info["spd"], player_info["lck"])
     elif choice == 4:
         print("Thank you for playing!")
     else:
@@ -54,8 +55,53 @@ def stat_verify(spd, inte, lck):
         player_info["inte"] = 100
     elif lck > 100:
         player_info["lck"] = 100
-    print(f"verifying stats:\nplayer spd = {player_info['spd']}\nplayer inte = {player_info['inte']}\nplayer lck = {player_info['lck']}")
+    # test
+    # print(f"verifying stats:\nplayer spd = {player_info['spd']}\nplayer inte = {player_info['inte']}\nplayer lck = {player_info['lck']}")
 
+# player can go on a walk and increase or decrease their luck!
+def walk(inte, spd, lck):
+    player_luck = player_info["lck"] * .01
+
+    # don't want the player to always get the good or bad results
+    if player_luck == 1:
+        player_luck = 0.90
+    elif player_luck == 0:
+        player_luck = 0.25
+
+    event_num = random.randint(1, 2)
+
+    # good events
+    if random.random() < player_luck:
+        if event_num == 1:
+            lck_inc = random.randint(1, 5)
+            print(f"You got a lot of pets on your walk today — feeling pretty lucky!\nLuck increased by {lck_inc}! ➕")
+            print("")
+            player_info["lck"] = lck + lck_inc
+        else:
+            lck_inc = random.randint(1, 5)
+            print(f"For some reason, your walk route had a lot of free treats!\nLuck increased by {lck_inc}! ➕")
+            print("")
+            player_info["lck"] = lck + lck_inc
+    # bad events
+    else:
+        if event_num == 1:
+            lck_dec = random.randint(1, 5)
+            print(f"Oh no! You were shooed away while trying to sneak a treat from a shop!\nLuck decreased by {lck_dec}! ➖")
+            print("")
+            player_info["lck"] = lck - lck_dec
+        # random super lucky event if they're unlucky
+        elif lck < 10 and random.random() < 0.6:
+            lck_inc = random.randint(5, 10)
+            print(f"For some inexplicable reason you feel super lucky!\nLuck increased by {lck_inc}! ➕")
+            print("")
+            player_info["lck"] = lck + lck_inc
+        else:
+            lck_dec = random.randint(1, 5)
+            print(f"Oh no! While walking, a car passed by and got water splashed onto you!\nLuck decreased by {lck_dec}! ➖")
+            print("")
+            player_info["lck"] = lck - lck_dec
+    stat_verify(player_info["spd"], player_info["inte"], player_info["lck"])
+    action()
 
 # player can randomly train their inte or spd, based on their luck
 def train(inte, spd, lck):
@@ -126,6 +172,7 @@ def show_stats(name, color, inte, spd, lck):
     else:
         print("LUCK: 🍀 Phenomenally lucky!! 🍀")
     print("")  # empty line
+    player_info["image"].show()
     action()
 
 # generates random int, spd, and lck stats for the player
